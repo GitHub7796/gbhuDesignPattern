@@ -19,28 +19,13 @@ public class User {
         this.chatRoom = chatRoom;
     }
 
-    protected void logout() {
-        chatRoom.register(this);
-        this.chatRoom = null;
+    protected void talk(String msg) {
+        chatRoom.sendMsg(this, msg);
     }
 
-    protected void talk(User to, String msg) {
-        if (Objects.isNull(msg)) {
-            System.out.println("【" + name + "】还未登录");
-            return;
-        }
-        chatRoom.sendMsg(this, to, msg);
+    public void listen(User from, String msg) {
+        System.out.print("【" + this.getName() + "】的对话框");
+        System.out.println(from.getName()+"说:"+msg);
     }
 
-    public void listen(User from, User to, String msg) {
-        System.out.println("【" + this.getName() + "】的对话框");
-        System.out.println(chatRoom.processMsg(from, to, name));
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null || getClass() != obj.getClass()) return false;
-        User user = (User) obj;
-        return Objects.equals(name,user.name);
-    }
 }
